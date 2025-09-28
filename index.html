@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma USF Apipucos</title>
+    <!-- Adicionando Font Awesome para os ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        .title-section {
+            flex: 2;
+        }
+        .logo {
+            max-height: 80px;
+            width: auto;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .tab-button {
+            padding: 15px 25px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .tab-button:hover {
+            background-color: #004085;
+        }
+        .tab-button.active {
+            background-color: #003366;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .tab-content {
+            display: none;
+            background-color: white;
+            padding: 25px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+        td[contenteditable="true"] {
+            cursor: text;
+            outline: 2px dashed #007bff;
+            outline-offset: -2px;
+        }
+        td[contenteditable="true"]:focus {
+            outline: 2px solid #0056b3;
+            background-color: #e9f7fe;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        .header-info {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+        }
+        .header-info h2 {
+            margin: 0;
+            color: #007bff;
+        }
+        .header-info p {
+            margin: 5px 0 0;
+            font-size: 1.1rem;
+            color: #495057;
+        }
+        .editable-date {
+            padding: 5px;
+            border: 1px dashed #007bff;
+            border-radius: 4px;
+            outline: none;
+        }
+        .editable-date:hover {
+            background-color: #f8f9fa;
+        }
+        .editable-date:focus {
+            background-color: #e9ecef;
+            border-style: solid;
+        }
+        .summary-table th {
+            background-color: #003366;
+        }
+        .legend {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .legend h3 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 10px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+        .legend-color:hover {
+            transform: scale(1.1);
+        }
+        .lunch {
+            background-color: #ffc107;
+        }
+        .collection {
+            background-color: #28a745;
+        }
+        .study-day {
+            background-color: #17a2b8;
+        }
+        .vacancy {
+            background-color: #6f42c1;
+            color: white;
+        }
+        .dental {
+            background-color: #e83e8c;
+            color: white;
+        }
+        .vacancy-cell {
+            background-color: #6f42c1;
+            color: white;
+            font-weight: bold;
+        }
+        .lunch-cell {
+            background-color: #ffc107;
+            font-weight: bold;
+        }
+        .collection-cell {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+        }
+        .study-cell {
+            background-color: #17a2b8;
+            color: white;
+            font-weight: bold;
+        }
+        .dental-cell {
+            background-color: #e83e8c;
+            color: white;
+            font-weight: bold;
+        }
+        .professionals-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .professionals-section h3 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        .professionals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .professional-category h4 {
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+        .professional-category ul {
+            padding-left: 20px;
+        }
+        .professional-category li {
+            margin-bottom: 5px;
+        }
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .action-button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-button {
+            background-color: #25D366;
+            color: white;
+        }
+        .print-button {
+            background-color: #6c757d;
+            color: white;
+        }
+        .edit-button {
+            background-color: #007bff;
+            color: white;
+        }
+        .save-button {
+            background-color: #28a745;
+            color: white;
+        }
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .timeline {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .timeline-progress {
+            height: 100%;
+            background-color: #007bff;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        .timeline-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        .phone-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .phone-section h3 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        .editable-phone {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            .tab-button {
+                width: 100%;
+                border-radius: 8px;
+            }
+            th, td {
+                padding: 8px;
+                font-size: 12px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .tab-button {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            .action-button {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            .professionals-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #003366;
+            color: white;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="logotipo-recife-cuida.jpeg" alt="Logo Recife Cuida" class="logo">
+                </div>
+                <div class="title-section">
+                    <h1>USF Apipucos</h1>
+                    <div class="subtitle">Cronograma de Atendimentos</div>
+                </div>
+                <div class="logo-section">
+                    <img src="logotipo-sus.jpeg" alt="Logo SUS" class="logo">
+                </div>
+            </div>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'resumo')">Resumo da Semana</button>
+            <button class="tab-button" onclick="openTab(event, 'terca')">Terça-feira</button>
+            <button class="tab-button" onclick="openTab(event, 'quarta')">Quarta-feira</button>
+            <button class="tab-button" onclick="openTab(event, 'quinta')">Quinta-feira</button>
+            <button class="tab-button" onclick="openTab(event, 'sexta')">Sexta-feira</button>
+            <button class="tab-button" onclick="openTab(event, 'segunda')">Segunda-feira</button>
+        </div>
+
+        <!-- Conteúdo dinâmico será inserido aqui pelo JavaScript -->
+        <div id="content-container"></div>
+
+        <div class="professionals-section">
+            <h3>Profissionais da Unidade</h3>
+            <div class="professionals-grid">
+                <div class="professional-category">
+                    <h4>Médicos</h4>
+                    <ul>
+                        <li>Dr. Rubens Cavalcanti (Clínico geral)</li>
+                        <li>Dr. Felipe Jacobovitz (residente)</li>
+                        <li>Dra. Sabrynna Mayara (residente)</li>
+                        <li>Dr. Marcos Augusto (Clínico Geral)</li>
+                    </ul>
+                </div>
+                <div class="professional-category">
+                    <h4>Enfermeiros</h4>
+                    <ul>
+                        <li>Enf. Clariane Falcão</li>
+                        <li>Enf. Tharcia Bezerra</li>
+                    </ul>
+                </div>
+                <div class="professional-category">
+                    <h4>Técnicos de Enfermagem</h4>
+                    <ul>
+                        <li>Tec. Enf. Carmen Verônica</li>
+                    </ul>
+                </div>
+                <div class="professional-category">
+                    <h4>Cirurgiões Dentistas</h4>
+                    <ul>
+                        <li>Dra. Loala Lindoso</li>
+                        <li>Dra. Sania Buonora</li>
+                    </ul>
+                </div>
+                <div class="professional-category">
+                    <h4>Agentes de Saúde</h4>
+                    <ul>
+                        <li>Débora Ellen</li>
+                        <li>Margareth Lopes</li>
+                        <li>Simone Firmino</li>
+                        <li>Jadilene Paz</li>
+                        <li>Sandra Cristina</li>
+                        <li>Sandra Tavares</li>
+                        <li>Márcia Araújo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <h3>Legenda</h3>
+            <div class="legend-item">
+                <div class="legend-color lunch" contenteditable="true" onclick="changeColor(this, 'lunch')"></div>
+                <div>Horário de Almoço</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color collection" contenteditable="true" onclick="changeColor(this, 'collection')"></div>
+                <div>Coleta de Sangue</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color study-day" contenteditable="true" onclick="changeColor(this, 'study-day')"></div>
+                <div>Dia de Estudo</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color vacancy" contenteditable="true" onclick="changeColor(this, 'vacancy')"></div>
+                <div>Vagas Disponíveis</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color dental" contenteditable="true" onclick="changeColor(this, 'dental')"></div>
+                <div>Atendimento Odontológico</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #ff6b6b;" contenteditable="true" onclick="changeColor(this, 'women-health')"></div>
+                <div>Saúde da Mulher</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #4ecdc4;" contenteditable="true" onclick="changeColor(this, 'general')"></div>
+                <div>Clínico Geral</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #ff9f1c;" contenteditable="true" onclick="changeColor(this, 'pediatrics')"></div>
+                <div>Pediatria</div>
+            </div>
+        </div>
+
+        <div class="phone-section">
+            <h3>Número do WhatsApp</h3>
+            <input type="text" id="whatsapp-number" value="+5511999999999" class="editable-phone" placeholder="Digite o número do WhatsApp">
+        </div>
+
+        <div class="actions">
+            <button class="action-button whatsapp-button" onclick="sendReminderMessage()">
+                <i class="fab fa-whatsapp"></i> Enviar Agenda via WhatsApp
+            </button>
+            <!-- Adicionando o botão de confirmação do WhatsApp -->
+            <button class="action-button whatsapp-button" onclick="openCustomReminderForm()">
+                <i class="fab fa-whatsapp"></i> Enviar Confirmação via WhatsApp
+            </button>
+            <!-- Adicionando o botão de compartilhamento no WhatsApp -->
+            <button class="action-button whatsapp-button" onclick="shareViaWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Compartilhar no WhatsApp
+            </button>
+            <button class="action-button print-button" onclick="printCurrentSchedule()">
+                <i class="fas fa-print"></i> Imprimir Cronograma
+            </button>
+            <button class="action-button edit-button" onclick="editSchedule()">
+                <i class="fas fa-edit"></i> Editar Cronograma
+            </button>
+            <button class="action-button save-button" onclick="saveSchedule()">
+                <i class="fas fa-save"></i> Salvar Alterações
+            </button>
+        </div>
+
+        <footer>
+            <p>Unidade de Saúde da Família Apipucos - 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // Função para carregar os dados do cronograma
+        async function loadScheduleData() {
+            try {
+                console.log('Tentando carregar dados do cronograma...');
+                const response = await fetch('cronograma-dados.json');
+                console.log('Resposta recebida:', response);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('Dados carregados com sucesso:', data);
+                return data;
+            } catch (error) {
+                console.error('Erro detalhado ao carregar os dados do cronograma:', error);
+                console.error('Tipo de erro:', error.constructor.name);
+                console.error('Mensagem de erro:', error.message);
+                
+                // Tentar carregar o arquivo alternativo
+                try {
+                    console.log('Tentando carregar arquivo alternativo...');
+                    const response2 = await fetch('cronograma-usf-apipucos-2025-09-27.json');
+                    if (!response2.ok) {
+                        throw new Error(`HTTP error! status: ${response2.status}`);
+                    }
+                    const data2 = await response2.json();
+                    console.log('Dados alternativos carregados com sucesso:', data2);
+                    return data2;
+                } catch (error2) {
+                    console.error('Erro ao carregar arquivo alternativo:', error2);
+                    // Instead of showing an alert, let's return a default structure
+                    console.log('Usando dados padrão');
+                    return getDefaultScheduleData();
+                }
+            }
+        }
+
+        // Função para fornecer dados padrão caso o carregamento falhe
+        function getDefaultScheduleData() {
+            console.log('Gerando dados padrão');
+            return {
+                "segunda": {
+                    "title": "SEGUNDA-FEIRA",
+                    "date": "03 de outubro de 2025",
+                    "schedule": []
+                },
+                "terca": {
+                    "title": "TERÇA-FEIRA",
+                    "date": "29 de setembro de 2025",
+                    "schedule": []
+                },
+                "quarta": {
+                    "title": "QUARTA-FEIRA",
+                    "date": "30 de setembro de 2025",
+                    "schedule": []
+                },
+                "quinta": {
+                    "title": "QUINTA-FEIRA",
+                    "date": "01 de outubro de 2025",
+                    "schedule": []
+                },
+                "sexta": {
+                    "title": "SEXTA-FEIRA",
+                    "date": "02 de outubro de 2025",
+                    "schedule": []
+                },
+                "resumo": {
+                    "title": "RESUMO DA SEMANA",
+                    "date": "Visão Geral",
+                    "schedule": []
+                }
+            };
+        }
+
+        // Função para mudar a cor de um item da legenda
+        function changeColor(element, category) {
+            // Criar uma paleta de cores pré-definida
+            const colorPalette = [
+                '#ff6b6b', // Vermelho
+                '#4ecdc4', // Verde água
+                '#ff9f1c', // Laranja
+                '#6a0572', // Roxo
+                '#1a936f', // Verde
+                '#114b5f', // Azul escuro
+                '#f45b69', // Rosa
+                '#2ec4b6'  // Turquesa
+            ];
+            
+            // Criar um elemento para mostrar a paleta de cores
+            const paletteHtml = `
+                <div id="color-palette" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 1000;">
+                    <h4>Selecione uma cor:</h4>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                        ${colorPalette.map(color => `
+                            <div style="width: 40px; height: 40px; background-color: ${color}; border-radius: 5px; cursor: pointer; border: 2px solid #ddd;" 
+                                 onclick="selectColor('${color}', '${category}')"></div>
+                        `).join('')}
+                    </div>
+                    <button onclick="closeColorPalette()" style="margin-top: 15px; padding: 8px 15px; background-color: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;">Cancelar</button>
+                </div>
+            `;
+            
+            // Adicionar a paleta ao body
+            document.body.insertAdjacentHTML('beforeend', paletteHtml);
+        }
+        
+        // Função para selecionar uma cor da paleta
+        function selectColor(color, category) {
+            // Aplicar a cor ao elemento
+            const elements = document.querySelectorAll(`[onclick*="${category}"]`);
+            elements.forEach(element => {
+                element.style.backgroundColor = color;
+            });
+            
+            // Salvar a cor no localStorage para persistência
+            localStorage.setItem(`color-${category}`, color);
+            
+            // Fechar a paleta
+            closeColorPalette();
+        }
+        
+        // Função para fechar a paleta de cores
+        function closeColorPalette() {
+            const palette = document.getElementById('color-palette');
+            if (palette) {
+                palette.remove();
+            }
+        }
+
+        // Função para aplicar estilos especiais às células
+        function applyCellStyles(cellText, isEditable = false) {
+            if (!cellText) return '<td></td>';
+            
+            // Se for editável, adicionar atributo contenteditable
+            const editableAttr = isEditable ? ' contenteditable="true"' : '';
+            
+            if (cellText.includes('ALMOÇO')) {
+                return `<td class="lunch-cell"${editableAttr}>${cellText}</td>`;
+            } else if (cellText.includes('COLETA DE SANGUE')) {
+                return `<td class="collection-cell"${editableAttr}>${cellText}</td>`;
+            } else if (cellText.includes('DIA DE ESTUDO')) {
+                return `<td class="study-cell"${editableAttr}>${cellText}</td>`;
+            } else if (cellText.includes('vaga')) {
+                return `<td class="vacancy-cell"${editableAttr}>${cellText}</td>`;
+            } else if (cellText.includes('Dentista') || cellText.includes('Odont') || cellText.includes('Loala') || cellText.includes('Sania')) {
+                return `<td class="dental-cell"${editableAttr}>${cellText}</td>`;
+            } else if (cellText.includes('Mulher') || cellText.includes('Ginec')) {
+                return `<td style="background-color: #ff6b6b; color: white; font-weight: bold;"${editableAttr}>${cellText}</td>`;
+            } else if (cellText.includes('Clínico') || cellText.includes('Geral')) {
+                return `<td style="background-color: #4ecdc4; color: white; font-weight: bold;"${editableAttr}>${cellText}</td>`;
+            } else if (cellText.includes('Pediatria') || cellText.includes('Criança')) {
+                return `<td style="background-color: #ff9f1c; color: white; font-weight: bold;"${editableAttr}>${cellText}</td>`;
+            } else {
+                return `<td${editableAttr}>${cellText}</td>`;
+            }
+        }
+
+        // Função para imprimir apenas o cronograma atual
+        function printCurrentSchedule() {
+            const contentContainer = document.getElementById('content-container');
+            const printContent = contentContainer.innerHTML;
+            const originalContent = document.body.innerHTML;
+            
+            // Criar uma nova janela de impressão com apenas o conteúdo do cronograma
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Cronograma USF Apipucos</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; }
+                            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                            th, td { border: 1px solid #000; padding: 8px; text-align: center; }
+                            th { background-color: #007bff; color: white; }
+                            .header-info { text-align: center; margin-bottom: 20px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div id="print-content">${printContent}</div>
+                    </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+        }
+
+        // Função para enviar mensagem via WhatsApp
+        function sendReminderMessage() {
+            const phoneNumber = document.getElementById('whatsapp-number').value;
+            const message = 'Olá, segue a agenda de atendimentos da USF Apipucos.';
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        // Função para enviar lembrete personalizado de consulta via WhatsApp
+        function sendCustomReminderMessage(patientName, appointmentDate, doctorName, doctorSpecialty) {
+            const phoneNumber = document.getElementById('whatsapp-number').value;
+            const message = `📌 USF Apipucos
+Prezado(a) ${patientName},
+
+Esta é uma mensagem automática para lembrar do seu agendamento de hoje, ${appointmentDate}, com o ${doctorName} – ${doctorSpecialty}.
+
+👉 O atendimento será realizado por ordem de chegada na data e horário informados.
+⚠️ Caso não possa comparecer, pedimos a gentileza de avisar com antecedência para que outra pessoa possa ser atendida.
+
+Estamos no aguardo.
+Atenciosamente,
+Unidade de Saúde da Família de Apipucos`;
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        // Função para abrir um formulário de envio de lembrete personalizado
+        function openCustomReminderForm() {
+            // Criar um formulário modal para entrada de dados
+            const formHtml = `
+                <div id="reminder-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000; display: flex; justify-content: center; align-items: center;">
+                    <div style="background-color: white; padding: 20px; border-radius: 10px; width: 90%; max-width: 500px;">
+                        <h3>Enviar Lembrete Personalizado</h3>
+                        <form id="reminder-form">
+                            <div style="margin-bottom: 15px;">
+                                <label for="patient-name">Nome do Paciente:</label>
+                                <input type="text" id="patient-name" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;" required>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="appointment-date">Data do Agendamento:</label>
+                                <input type="text" id="appointment-date" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;" placeholder="Ex: 01 de outubro" required>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="doctor-name">Nome do Médico:</label>
+                                <input type="text" id="doctor-name" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;" placeholder="Ex: Dr. Rubens" required>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="doctor-specialty">Especialidade:</label>
+                                <input type="text" id="doctor-specialty" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;" placeholder="Ex: Clínico Geral" required>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <button type="button" onclick="closeReminderForm()" style="padding: 10px 20px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">Cancelar</button>
+                                <button type="submit" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Enviar Lembrete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+            
+            // Adicionar o formulário ao body
+            document.body.insertAdjacentHTML('beforeend', formHtml);
+            
+            // Adicionar evento de submit ao formulário
+            document.getElementById('reminder-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const patientName = document.getElementById('patient-name').value;
+                const appointmentDate = document.getElementById('appointment-date').value;
+                const doctorName = document.getElementById('doctor-name').value;
+                const doctorSpecialty = document.getElementById('doctor-specialty').value;
+                
+                sendCustomReminderMessage(patientName, appointmentDate, doctorName, doctorSpecialty);
+                closeReminderForm();
+            });
+        }
+
+        // Função para fechar o formulário de lembrete
+        function closeReminderForm() {
+            const modal = document.getElementById('reminder-modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // Função para compartilhar o cronograma via WhatsApp
+        function shareViaWhatsApp() {
+            // Obter o conteúdo atual do cronograma
+            const contentContainer = document.getElementById('content-container');
+            if (!contentContainer) {
+                alert('Nenhum cronograma para compartilhar.');
+                return;
+            }
+            
+            // Obter o título da aba ativa
+            const activeTab = document.querySelector('.tab-button.active');
+            const tabTitle = activeTab ? activeTab.textContent : 'Cronograma USF Apipucos';
+            
+            // Criar uma versão textual do cronograma
+            let shareText = `*${tabTitle}*\n\n`;
+            
+            // Adicionar informações dos profissionais
+            shareText += "*Profissionais:*\n";
+            const professionals = document.querySelectorAll('.professional-category');
+            professionals.forEach(category => {
+                const categoryName = category.querySelector('h4').textContent;
+                shareText += `\n_${categoryName}_\n`;
+                
+                const professionalsList = category.querySelectorAll('li');
+                professionalsList.forEach(prof => {
+                    shareText += `• ${prof.textContent}\n`;
+                });
+            });
+            
+            shareText += "\n*Legenda:*\n";
+            const legendItems = document.querySelectorAll('.legend-item');
+            legendItems.forEach(item => {
+                const colorElement = item.querySelector('.legend-color');
+                const textElement = item.querySelector('div:last-child');
+                if (colorElement && textElement) {
+                    const color = colorElement.style.backgroundColor || 'cor';
+                    shareText += `• ${textElement.textContent}\n`;
+                }
+            });
+            
+            shareText += "\nPara mais detalhes, acesse: ";
+            shareText += window.location.href;
+            
+            // Codificar o texto para URL
+            const encodedText = encodeURIComponent(shareText);
+            
+            // Abrir o WhatsApp com o texto
+            const whatsappUrl = `https://wa.me/?text=${encodedText}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Função para abrir uma aba
+        function openTab(evt, tabName) {
+            console.log('Abrindo aba:', tabName);
+            
+            // Esconder todas as abas
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remover classe ativa de todos os botões
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Mostrar a aba atual
+            const contentContainer = document.getElementById('content-container');
+            console.log('Container de conteúdo:', contentContainer);
+            
+            // Se não houver dados de cronograma, tentar carregar novamente
+            if (!window.scheduleData) {
+                console.log('Dados do cronograma não encontrados, tentando carregar novamente...');
+                loadScheduleData().then(data => {
+                    window.scheduleData = data;
+                    renderTabContent(tabName, contentContainer);
+                });
+                return;
+            }
+            
+            renderTabContent(tabName, contentContainer);
+            
+            // Adicionar classe ativa ao botão atual
+            if (evt && evt.currentTarget) {
+                evt.currentTarget.classList.add('active');
+            } else {
+                // Se não houver evento, ativar o primeiro botão
+                const firstButton = document.querySelector('.tab-button');
+                if (firstButton) {
+                    firstButton.classList.add('active');
+                }
+            }
+        }
+
+        // Função para renderizar o conteúdo da aba
+        function renderTabContent(tabName, container) {
+            console.log('Renderizando conteúdo da aba:', tabName);
+            console.log('Container:', container);
+            
+            if (!window.scheduleData) {
+                const errorMsg = '<p>Erro: Dados do cronograma não disponíveis.</p>';
+                console.error('Dados do cronograma não disponíveis');
+                if (container) {
+                    container.innerHTML = errorMsg;
+                }
+                return;
+            }
+            
+            const tabData = window.scheduleData[tabName];
+            if (!tabData) {
+                const errorMsg = '<p>Erro: Dados da aba não encontrados.</p>';
+                console.error('Dados da aba não encontrados:', tabName);
+                if (container) {
+                    container.innerHTML = errorMsg;
+                }
+                return;
+            }
+            
+            let content = `
+                <div id="${tabName}" class="tab-content active">
+                    <div class="header-info">
+                        <h2>${tabData.title}</h2>
+                        <p><span class="editable-date" contenteditable="true">${tabData.date}</span></p>
+                    </div>
+            `;
+            
+            if (tabName === 'resumo') {
+                // Renderizar tabela de resumo
+                content += `
+                    <table class="summary-table">
+                        <thead>
+                            <tr>
+                                <th>Horário</th>
+                                <th>Dr. Rubens (Clínico Geral)</th>
+                                <th>Dr. Felipe (Residente)</th>
+                                <th>Dra. Sabrynna (Residente)</th>
+                                <th>Dr. Marcos (Clínico Geral)</th>
+                                <th>Enf. Clariane</th>
+                                <th>Enf. Tharcia</th>
+                                <th>Tec. Enf. Carmen</th>
+                                <th>Tec. Enf. L</th>
+                                <th>Dra. Loala (Dentista)</th>
+                                <th>Dra. Sania (Dentista)</th>
+                                <th>Agentes de Saúde</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                if (tabData.schedule && Array.isArray(tabData.schedule)) {
+                    tabData.schedule.forEach(row => {
+                        content += '<tr>';
+                        content += `<td>${row.horario}</td>`;
+                        content += applyCellStyles(row.drA, true);
+                        content += applyCellStyles(row.resA, true);
+                        content += applyCellStyles(row.resB, true);
+                        content += applyCellStyles(row.drB, true);
+                        content += applyCellStyles(row.enfC, true);
+                        content += applyCellStyles(row.enfD, true);
+                        content += applyCellStyles(row.tecL, true);
+                        content += applyCellStyles(row.tecM, true);
+                        content += applyCellStyles(row.draE, true);
+                        content += applyCellStyles(row.draF, true);
+                        content += applyCellStyles(row.agentes, true);
+                        content += '</tr>';
+                    });
+                }
+                
+                content += `
+                        </tbody>
+                    </table>
+                `;
+            } else {
+                // Renderizar tabela normal
+                content += `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Horário</th>
+                                <th>Dr. Rubens (Clínico Geral)</th>
+                                <th>Dr. Felipe (Residente)</th>
+                                <th>Dra. Sabrynna (Residente)</th>
+                                <th>Dr. Marcos (Clínico Geral)</th>
+                                <th>Enf. Clariane</th>
+                                <th>Enf. Tharcia</th>
+                                <th>Tec. Enf. Carmen</th>
+                                <th>Tec. Enf. L</th>
+                                <th>Dra. Loala (Dentista)</th>
+                                <th>Dra. Sania (Dentista)</th>
+                                <th>Agentes de Saúde</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                if (tabData.schedule && Array.isArray(tabData.schedule)) {
+                    tabData.schedule.forEach(row => {
+                        content += '<tr>';
+                        content += `<td>${row.horario}</td>`;
+                        content += applyCellStyles(row.drA, true);
+                        content += applyCellStyles(row.resA, true);
+                        content += applyCellStyles(row.resB, true);
+                        content += applyCellStyles(row.drB, true);
+                        content += applyCellStyles(row.enfC, true);
+                        content += applyCellStyles(row.enfD, true);
+                        content += applyCellStyles(row.tecL, true);
+                        content += applyCellStyles(row.tecM, true);
+                        content += applyCellStyles(row.draE, true);
+                        content += applyCellStyles(row.draF, true);
+                        content += applyCellStyles(row.agentes, true);
+                        content += '</tr>';
+                    });
+                }
+                
+                content += `
+                        </tbody>
+                    </table>
+                `;
+            }
+            
+            content += '</div>';
+            console.log('Conteúdo gerado:', content);
+            if (container) {
+                container.innerHTML = content;
+            }
+        }
+
+        // Função para editar o cronograma
+        function editSchedule() {
+            // Adicionar atributo contenteditable a todas as células da tabela
+            const editableCells = document.querySelectorAll('td[contenteditable="true"]');
+            editableCells.forEach(cell => {
+                cell.setAttribute('contenteditable', 'true');
+                cell.style.outline = '2px dashed #007bff';
+                cell.style.outlineOffset = '-2px';
+            });
+            
+            // Adicionar atributo contenteditable às datas
+            const editableDates = document.querySelectorAll('.editable-date');
+            editableDates.forEach(date => {
+                date.setAttribute('contenteditable', 'true');
+                date.style.border = '1px dashed #007bff';
+                date.style.padding = '5px';
+                date.style.borderRadius = '4px';
+            });
+            
+            alert('Modo de edição ativado! Clique nas células para editar. Clique em "Salvar Alterações" quando terminar.');
+        }
+
+        // Função para salvar o cronograma editado
+        function saveSchedule() {
+            // Coletar todos os dados editados
+            const editedData = {
+                timestamp: new Date().toISOString(),
+                schedules: {}
+            };
+            
+            // Coletar dados de cada aba
+            const tabNames = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'resumo'];
+            tabNames.forEach(tabName => {
+                const tabElement = document.getElementById(tabName);
+                if (tabElement) {
+                    const table = tabElement.querySelector('table');
+                    if (table) {
+                        const rows = table.querySelectorAll('tbody tr');
+                        const scheduleData = [];
+                        
+                        rows.forEach(row => {
+                            const cells = row.querySelectorAll('td');
+                            if (cells.length > 0) {
+                                const rowData = {
+                                    horario: cells[0].textContent
+                                };
+                                
+                                // Coletar dados de cada coluna
+                                const headers = table.querySelectorAll('thead th');
+                                for (let i = 1; i < cells.length && i < headers.length; i++) {
+                                    const headerText = headers[i].textContent;
+                                    // Criar chave baseada no cabeçalho
+                                    const key = headerText.toLowerCase()
+                                        .replace(/dr\.?\s*/g, 'dr')
+                                        .replace(/enf\.?\s*/g, 'enf')
+                                        .replace(/tec\.?\s*/g, 'tec')
+                                        .replace(/dra\.?\s*/g, 'dra')
+                                        .replace(/\s+/g, '')
+                                        .replace(/[^\w]/g, '');
+                                    
+                                    rowData[key] = cells[i].textContent;
+                                }
+                                
+                                scheduleData.push(rowData);
+                            }
+                        });
+                        
+                        editedData.schedules[tabName] = {
+                            title: tabElement.querySelector('h2').textContent,
+                            date: tabElement.querySelector('.editable-date').textContent,
+                            schedule: scheduleData
+                        };
+                    }
+                }
+            });
+            
+            // Salvar no localStorage
+            localStorage.setItem('editedSchedule', JSON.stringify(editedData));
+            
+            // Remover estilos de edição
+            const editableCells = document.querySelectorAll('td[contenteditable="true"]');
+            editableCells.forEach(cell => {
+                cell.style.outline = '';
+            });
+            
+            const editableDates = document.querySelectorAll('.editable-date');
+            editableDates.forEach(date => {
+                date.style.border = '';
+                date.style.padding = '';
+                date.style.borderRadius = '';
+            });
+            
+            // Aplicar os dados salvos imediatamente
+            applySavedSchedule(editedData);
+            
+            alert('Cronograma salvo com sucesso! (Dados salvos localmente no navegador)');
+            
+            console.log('Cronograma salvo:', editedData);
+        }
+
+        // Função para carregar dados salvos
+        function loadSavedSchedule() {
+            const savedData = localStorage.getItem('editedSchedule');
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+                    console.log('Dados salvos carregados:', data);
+                    return data;
+                } catch (e) {
+                    console.error('Erro ao carregar dados salvos:', e);
+                }
+            }
+            return null;
+        }
+
+        // Função para aplicar dados salvos ao cronograma
+        function applySavedSchedule(savedData) {
+            if (savedData && savedData.schedules) {
+                window.scheduleData = savedData.schedules;
+                console.log('Aplicando dados salvos:', savedData);
+                
+                // Atualizar a aba atual
+                const activeTab = document.querySelector('.tab-button.active');
+                if (activeTab) {
+                    const tabName = activeTab.textContent.toLowerCase()
+                        .replace(/-\w+/g, '') // Remover "feira"
+                        .replace(/terça/g, 'terca')
+                        .replace(/quarta/g, 'quarta')
+                        .replace(/quinta/g, 'quinta')
+                        .replace(/sexta/g, 'sexta')
+                        .replace(/segunda/g, 'segunda')
+                        .replace(/resumo\s+da\s+semana/g, 'resumo')
+                        .trim();
+                    
+                    const contentContainer = document.getElementById('content-container');
+                    if (contentContainer) {
+                        renderTabContent(tabName, contentContainer);
+                    }
+                }
+            }
+        }
+
+        // Carregar cores salvas e dados do cronograma quando a página carregar
+        window.addEventListener('DOMContentLoaded', async () => {
+            console.log('Página carregada, iniciando carregamento de dados...');
+            loadSavedColors();
+            
+            // Tentar carregar dados salvos primeiro
+            const savedSchedule = loadSavedSchedule();
+            if (savedSchedule && savedSchedule.schedules) {
+                window.scheduleData = savedSchedule.schedules;
+                console.log('Usando dados salvos');
+            } else {
+                window.scheduleData = await loadScheduleData();
+                console.log('Dados do cronograma carregados:', window.scheduleData);
+            }
+            
+            if (window.scheduleData) {
+                // Mostrar a aba de resumo por padrão
+                const firstButton = document.querySelector('.tab-button');
+                if (firstButton) {
+                    firstButton.classList.add('active');
+                    openTab({ currentTarget: firstButton }, 'resumo');
+                } else {
+                    document.getElementById('content-container').innerHTML = '<p>Erro ao carregar os dados do cronograma.</p>';
+                }
+            } else {
+                console.error('Falha ao carregar dados do cronograma');
+                if (document.getElementById('content-container')) {
+                    document.getElementById('content-container').innerHTML = '<p>Erro ao carregar os dados do cronograma.</p>';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{
+  "name": "cronograma-usf-apipucos",
+  "version": "2.0.0",
+  "description": "Sistema avançado de agendamento e visualização de cronograma para a Unidade de Saúde da Família Apipucos",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'Build completed - Static files ready for deployment'",
+    "deploy": "echo 'Ready for deployment to Netlify, Vercel, or GitHub Pages'",
+    "test": "echo 'No tests specified'",
+    "lint": "echo 'No linting configured'",
+    "serve": "node server.js"
+  },
+  "keywords": [
+    "cronograma",
+    "saude",
+    "usf",
+    "apipucos",
+    "agendamento",
+    "medical",
+    "schedule",
+    "healthcare",
+    "pwa",
+    "responsive",
+    "whatsapp",
+    "recife",
+    "sus"
+  ],
+  "author": {
+    "name": "Equipe USF Apipucos",
+    "email": "contato@usfapipucos.recife.pe.gov.br"
+  },
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/usf-apipucos/cronograma-usf-apipucos.git"
+  },
+  "bugs": {
+    "url": "https://github.com/usf-apipucos/cronograma-usf-apipucos/issues"
+  },
+  "homepage": "https://cronograma-usf-apipucos.netlify.app",
+  "private": false
+}

@@ -1,0 +1,36 @@
+{
+  "name": "cronograma-usf-apipucos",
+  "version": "1.0.0",
+  "description": "Sistema de agendamento e visualização de cronograma para a Unidade de Saúde da Família Apipucos",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'No build required'"
+  },
+  "keywords": [
+    "cronograma",
+    "saude",
+    "usf",
+    "apipucos",
+    "agendamento",
+    "medical",
+    "schedule"
+  ],
+  "author": "Equipe USF Apipucos",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "private": true
+}
